@@ -32,7 +32,9 @@ export class CommentService {
   }
 
   async findById(commentId: number): Promise<Comment> {
-    const comment = await this.commentsRepository.findOne(commentId);
+    const comment = await this.commentsRepository.findOne(commentId, {
+      relations: ['article'],
+    });
     if (!comment)
       throw new HttpException(
         "Couldn't find the comment",

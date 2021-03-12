@@ -25,7 +25,9 @@ export class AuthorService {
   }
 
   async findById(authorId: number): Promise<Author> {
-    const author = await this.authorsRepository.findOne(authorId);
+    const author = await this.authorsRepository.findOne(authorId, {
+      relations: ['articles'],
+    });
     if (!author)
       throw new HttpException("Couldn't find the author", HttpStatus.NOT_FOUND);
     return author;

@@ -36,9 +36,9 @@ export class Article {
   thumbsUp: number;
 
   @ManyToOne(() => Author, (user) => user.articles)
-  @JoinColumn({ name: 'authorId' })
+  @JoinColumn()
   author: Author;
 
-  @OneToMany(() => Comment, (comment) => comment.article)
+  @OneToMany(() => Comment, (comment) => comment.article, { cascade: true })
   comments: Comment[];
 }

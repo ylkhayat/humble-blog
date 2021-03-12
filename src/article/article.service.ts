@@ -30,7 +30,9 @@ export class ArticleService {
   }
 
   async findById(articleId: number): Promise<Article> {
-    const article = await this.articlesRepository.findOne(articleId);
+    const article = await this.articlesRepository.findOne(articleId, {
+      relations: ['comments', 'author'],
+    });
     if (!article)
       throw new HttpException(
         "Couldn't find the article",

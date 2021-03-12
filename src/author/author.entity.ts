@@ -24,7 +24,7 @@ export class Author {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
-  @OneToMany(() => Article, (article) => article.author)
+  @OneToMany(() => Article, (article) => article.author, { cascade: true })
   articles: Article[];
 
   @BeforeUpdate()
