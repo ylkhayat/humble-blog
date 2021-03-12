@@ -1,7 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeUpdate } from 'typeorm';
+import { Article } from './../article/article.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BeforeUpdate,
+  OneToMany,
+} from 'typeorm';
 
 @Entity('author')
-export class AuthorEntity {
+export class Author {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,13 +19,16 @@ export class AuthorEntity {
   jobTitle: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created: Date;
+  createdAt: Date;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updated: Date;
+  updatedAt: Date;
+
+  @OneToMany(() => Article, (article) => article.author)
+  articles: Article[];
 
   @BeforeUpdate()
   updateTimestamp() {
-    this.updated = new Date();
+    this.updatedAt = new Date();
   }
 }

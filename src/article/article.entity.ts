@@ -1,19 +1,17 @@
+import { Author } from './../author/author.entity';
+import { Comment } from './../comment/comment.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
-  ManyToOne,
-  OneToMany,
-  JoinColumn,
-  AfterUpdate,
   BeforeUpdate,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
 } from 'typeorm';
-import { AuthorEntity } from '../author/author.entity';
-import { Comment } from '../comment/comment.entity';
 
 @Entity('article')
-export class ArticleEntity {
+export class Article {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,23 +22,23 @@ export class ArticleEntity {
   body: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created: Date;
+  createdAt: Date;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updated: Date;
+  updatedAt: Date;
 
   @BeforeUpdate()
   updateTimestamp() {
-    this.updated = new Date();
+    this.updatedAt = new Date();
   }
-
-  @ManyToOne(() => AuthorEntity, (user) => user.articles)
-  author: AuthorEntity;
-
-  @OneToMany(() => Comment, (comment) => comment.article, { eager: true })
-  @JoinColumn()
-  comments: Comment[];
 
   @Column({ default: 0 })
   thumbsUp: number;
+
+  @ManyToOne(() => Author, (user) => user.articles)
+  @JoinColumn({ name: 'authorId' })
+  author: Author;
+
+  @OneToMany(() => Comment, (comment) => comment.article)
+  comments: Comment[];
 }

@@ -1,33 +1,33 @@
 import { CreateAuthorDto } from './dto/create-author.dto';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AuthorEntity } from './author.entity';
+import { Author } from './author.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthorService {
   constructor(
-    @InjectRepository(AuthorEntity)
-    private readonly authorRepository: Repository<AuthorEntity>,
+    @InjectRepository(Author)
+    private readonly authorsRepository: Repository<Author>,
   ) {}
 
-  async create(authorData: CreateAuthorDto): Promise<AuthorEntity> {
-    const author = new AuthorEntity();
+  async create(authorData: CreateAuthorDto): Promise<Author> {
+    const author = new Author();
     author.name = authorData.name;
     author.jobTitle = authorData.jobTitle;
 
-    const newAuthor = await this.authorRepository.save(author);
+    const newAuthor = await this.authorsRepository.save(author);
     return newAuthor;
   }
 
-  findById(): any {
-    throw new Error('Method not implemented.');
-  }
-  updateById(): any {
-    throw new Error('Method not implemented.');
+  async findAll(): Promise<Author[]> {
+    return await this.authorsRepository.find();
   }
 
-  findAll(): Promise<Author[]> {
-    return this.authorRepository.findAll<Author>();
+  async findById(authorId: number): Promise<Author> {
+    const author = await this.authorsRepository.findOne(authorId);
+    if (!author)
+      throw new HttpException("Couldn't find the author", HttpStatus.NOT_FOUND);
+    return author;
   }
 }

@@ -1,5 +1,9 @@
+import { IsNotEmpty } from 'class-validator';
+
 export class CreateAuthorDto {
-  readonly id: number;
+  @IsNotEmpty()
   readonly name: string;
+
+  @IsNotEmpty()
   readonly jobTitle: string;
 }

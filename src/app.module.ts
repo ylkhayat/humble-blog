@@ -1,17 +1,18 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthorModule } from './author/author.module';
-import { ArticlesModule } from './article/article.module';
+import { ArticleModule } from './article/article.module';
 import { CommentModule } from './comment/comment.module';
+import { Connection } from 'typeorm';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({ autoLoadEntities: true }),
     AuthorModule,
-    // ArticlesModule,
-    // CommentModule,
+    ArticleModule,
+    CommentModule,
   ],
-  controllers: [],
-  providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private readonly _: Connection) {}
+}

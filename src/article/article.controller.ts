@@ -1,25 +1,24 @@
-import { ArticleDto } from './dto/article.dto';
-import { ArticlesService } from './article.service';
+import { CreateArticleDto } from './dto/create-article.dto';
+import { ArticleService } from './article.service';
 import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 
 @Controller('articles')
-export class ArticlesController {
-  constructor(private articlesService: ArticlesService) {}
+export class ArticleController {
+  constructor(private articlesService: ArticleService) {}
 
   @Post('/')
-  create(@Body() article: ArticleDto): any {
-    // return this.articlesService.create();
+  create(@Body() article: CreateArticleDto): any {
+    return this.articlesService.create(article);
   }
 
   @Get('/')
-  findAll(@Query() query: any): any {
-    // return this.articlesService.findAll();
+  findAll(): any {
+    return this.articlesService.findAll();
   }
 
   @Get('/:id')
   findById(@Param('id') articleId: number): any {
-    console.log(articleId);
-    // return this.articlesService.findById();
+    return this.articlesService.findById(articleId);
   }
 
   @Put('/:id')

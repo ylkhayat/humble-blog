@@ -1,7 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeUpdate } from 'typeorm';
+import { Article } from './../article/article.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BeforeUpdate,
+  ManyToOne,
+} from 'typeorm';
 
 @Entity('comment')
-export class CommentEntity {
+export class Comment {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -9,13 +16,16 @@ export class CommentEntity {
   body: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created: Date;
+  createdAt: Date;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updated: Date;
+  updatedAt: Date;
 
   @BeforeUpdate()
   updateTimestamp() {
-    this.updated = new Date();
+    this.updatedAt = new Date();
   }
+
+  @ManyToOne(() => Article, (article) => article.comments)
+  article: Article;
 }

@@ -1,32 +1,23 @@
-import { AuthorDto } from './dto/author.dto';
+import { CreateAuthorDto } from './dto/create-author.dto';
 import { AuthorService } from './author.service';
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 @Controller('authors')
 export class AuthorController {
   constructor(private authorService: AuthorService) {}
 
   @Post('/')
-  create(@Body() article: AuthorDto): any {
-    return this.authorService.create(article);
+  create(@Body() author: CreateAuthorDto): any {
+    return this.authorService.create(author);
   }
 
   @Get('/')
-  findAll(@Query() query: any): any {
+  findAll(): any {
     return this.authorService.findAll();
   }
 
   @Get('/:id')
-  findById(@Param('id') articleId: number): any {
-    console.log(articleId);
-    return this.authorService.findById();
-  }
-
-  @Put('/:id')
-  updateById(
-    @Param('id') articleId: number,
-    @Body('thumbs_up') thumbsUp: boolean,
-  ): any {
-    return this.authorService.updateById();
+  findById(@Param('id') authorId: number): any {
+    return this.authorService.findById(authorId);
   }
 }
