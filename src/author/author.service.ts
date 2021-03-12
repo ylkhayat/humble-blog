@@ -1,19 +1,25 @@
-import { AuthorDto } from './dto/author.dto';
-import { Inject, Injectable } from '@nestjs/common';
-import { Author } from './author.entity';
+import { CreateAuthorDto } from './dto/create-author.dto';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { AuthorEntity } from './author.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthorService {
   constructor(
-    @Inject(AUTHORS_REPOSITORY) private authorsRepository: typeof Author,
+    @InjectRepository(AuthorEntity)
+    private readonly authorRepository: Repository<AuthorEntity>,
   ) {}
 
-  create(body: AuthorDto): Promise<Author> {
-    return this.authorsRepository.create({
-      name: 'Eric',
-      reputation: 150,
-    });
+  async create(authorData: CreateAuthorDto): Promise<AuthorEntity> {
+    const author = new AuthorEntity();
+    author.name = authorData.name;
+    author.jobTitle = authorData.jobTitle;
+
+    const newAuthor = await this.authorRepository.save(author);
+    return newAuthor;
   }
+
   findById(): any {
     throw new Error('Method not implemented.');
   }
@@ -22,6 +28,6 @@ export class AuthorService {
   }
 
   findAll(): Promise<Author[]> {
-    return this.authorsRepository.findAll<Author>();
+    return this.authorRepository.findAll<Author>();
   }
 }

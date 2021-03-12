@@ -10,7 +10,7 @@ import {
   BeforeUpdate,
 } from 'typeorm';
 import { AuthorEntity } from '../author/author.entity';
-import { Comment } from './comment.entity';
+import { Comment } from '../comment/comment.entity';
 
 @Entity('article')
 export class ArticleEntity {
@@ -34,8 +34,8 @@ export class ArticleEntity {
     this.updated = new Date();
   }
 
-  @ManyToOne(() => UserEntity, (user) => user.articles)
-  author: UserEntity;
+  @ManyToOne(() => AuthorEntity, (user) => user.articles)
+  author: AuthorEntity;
 
   @OneToMany(() => Comment, (comment) => comment.article, { eager: true })
   @JoinColumn()

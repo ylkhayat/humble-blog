@@ -1,15 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, BeforeUpdate } from 'typeorm';
 
-@Entity('author')
-export class AuthorEntity {
+@Entity('comment')
+export class CommentEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
-
-  @Column()
-  jobTitle: string;
+  body: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created: Date;

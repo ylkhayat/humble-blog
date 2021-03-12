@@ -2,14 +2,14 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthorModule } from './author/author.module';
 import { ArticlesModule } from './article/article.module';
-import { CommentsModule } from './comments/comments.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
     AuthorModule,
     // ArticlesModule,
-    // CommentsModule,
+    // CommentModule,
   ],
   controllers: [],
   providers: [],
