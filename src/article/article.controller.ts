@@ -12,8 +12,8 @@ export class ArticleController {
   }
 
   @Get('/')
-  findAll(): any {
-    return this.articlesService.findAll();
+  findAll(@Param('query') query: any): any {
+    return this.articlesService.findAll(query);
   }
 
   @Get('/:id')
@@ -24,8 +24,8 @@ export class ArticleController {
   @Put('/:id')
   updateById(
     @Param('id') articleId: number,
-    @Body('thumbs_up') thumbsUp: boolean,
+    @Body('thumbsUp') thumbsUp: boolean,
   ): any {
-    // return this.articlesService.updateById();
+    return this.articlesService.update(articleId, thumbsUp);
   }
 }

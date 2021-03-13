@@ -42,7 +42,7 @@ services:
     command:
       - /bin/bash
       - -c
-      - yarn && yarn start:debug
+      - yarn && yarn start
     env_file: .env
 
 volumes:

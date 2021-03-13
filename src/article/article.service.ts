@@ -25,7 +25,13 @@ export class ArticleService {
     return newArticle;
   }
 
-  findAll(): Promise<Article[]> {
+  findAll(query: string): Promise<Article[]> {
+    if (query)
+      return this.articlesRepository
+        .createQueryBuilder('article')
+        .where('article.body ILIKE :query', { query: query })
+        .orWhere('article.title ILIKE :query', { query: query })
+        .getMany();
     return this.articlesRepository.find();
   }
 
@@ -39,5 +45,19 @@ export class ArticleService {
         HttpStatus.NOT_FOUND,
       );
     return article;
+  }
+
+  async update(articleId: number, thumbsUp: boolean): Promise<Article> {
+    const article = await this.articlesRepository.findOne(articleId, {
+      relations: ['comments', 'author'],
+    });
+    if (!article)
+      throw new HttpException(
+        "Couldn't find the article",
+        HttpStatus.NOT_FOUND,
+      );
+    article.thumbsUp += thumbsUp ? 1 : 0;
+    const updateArticle = await this.articlesRepository.save(article);
+    return updateArticle;
   }
 }
