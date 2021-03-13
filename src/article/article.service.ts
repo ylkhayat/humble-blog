@@ -25,15 +25,14 @@ export class ArticleService {
     return newArticle;
   }
 
-  findAll(query: string): Promise<Article[]> {
+  findAll(query: string, byThumbsUp: boolean): Promise<Article[]> {
+    const qb = getRepository(Article).createQueryBuilder('article');
     if (query)
-      return getRepository(Article)
-        .createQueryBuilder('article')
-        .where('article.body like :query OR article.title like :query', {
-          query: `%${query}%`,
-        })
-        .getMany();
-    return this.articlesRepository.find();
+      qb.where('article.body like :query OR article.title like :query', {
+        query: `%${query}%`,
+      });
+    if (byThumbsUp) qb.orderBy('article.thumbsUp', 'DESC');
+    return qb.getMany();
   }
 
   async findById(articleId: number): Promise<Article> {

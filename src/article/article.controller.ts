@@ -12,8 +12,11 @@ export class ArticleController {
   }
 
   @Get()
-  findAll(@Query() query: any): any {
-    return this.articlesService.findAll(query.query);
+  findAll(@Query() queryObject: any): any {
+    return this.articlesService.findAll(
+      queryObject.query,
+      queryObject.byThumbsUp,
+    );
   }
 
   @Get('/:id')
