@@ -27,10 +27,11 @@ export class ArticleService {
 
   findAll(query: string): Promise<Article[]> {
     if (query)
-      return this.articlesRepository
+      return getRepository(Article)
         .createQueryBuilder('article')
-        .where('article.body ILIKE :query', { query: query })
-        .orWhere('article.title ILIKE :query', { query: query })
+        .where('article.body like :query OR article.title like :query', {
+          query: `%${query}%`,
+        })
         .getMany();
     return this.articlesRepository.find();
   }

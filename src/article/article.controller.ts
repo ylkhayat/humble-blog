@@ -11,9 +11,9 @@ export class ArticleController {
     return this.articlesService.create(article);
   }
 
-  @Get('/')
-  findAll(@Param('query') query: any): any {
-    return this.articlesService.findAll(query);
+  @Get()
+  findAll(@Query() query: any): any {
+    return this.articlesService.findAll(query.query);
   }
 
   @Get('/:id')
