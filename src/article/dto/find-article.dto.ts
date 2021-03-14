@@ -1,4 +1,9 @@
-import { IsNumberString, IsString, IsBoolean } from 'class-validator';
+import {
+  IsNumberString,
+  IsString,
+  IsOptional,
+  IsBooleanString,
+} from 'class-validator';
 
 export class FindArticleDto {
   @IsNumberString()
@@ -7,8 +12,10 @@ export class FindArticleDto {
 
 export class FindArticlesDto {
   @IsString()
-  readonly query: string;
+  @IsOptional()
+  readonly query?: string;
 
-  @IsBoolean()
-  readonly byThumbsUp: boolean;
+  @IsBooleanString()
+  @IsOptional()
+  readonly byThumbsUp?: boolean;
 }

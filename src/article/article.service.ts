@@ -1,6 +1,7 @@
+import { AUTHOR_REPOSITORY } from './../constants';
 import { Author } from './../author/author.entity';
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { getRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Article } from './article.entity';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { ARTICLE_REPOSITORY } from 'src/constants';
@@ -10,11 +11,13 @@ export class ArticleService {
   constructor(
     @Inject(ARTICLE_REPOSITORY)
     private readonly articlesRepository: Repository<Article>,
+    @Inject(AUTHOR_REPOSITORY)
+    private readonly authorsRepository: Repository<Author>,
   ) {}
 
   async create(articleData: CreateArticleDto): Promise<Article> {
     const article = new Article();
-    const author = await getRepository(Author).findOne(articleData.author);
+    const author = await this.authorsRepository.findOne(articleData.author);
     if (!author)
       throw new HttpException("Couldn't find the author", HttpStatus.NOT_FOUND);
     article.body = articleData.body;
@@ -26,7 +29,7 @@ export class ArticleService {
   }
 
   findAll(query: string, byThumbsUp: boolean): Promise<Article[]> {
-    const qb = getRepository(Article).createQueryBuilder('article');
+    const qb = this.articlesRepository.createQueryBuilder('article');
     if (query)
       qb.where('article.body like :query OR article.title like :query', {
         query: `%${query}%`,

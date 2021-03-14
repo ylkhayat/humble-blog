@@ -9,8 +9,8 @@ import { Connection } from 'typeorm';
   imports: [
     TypeOrmModule.forRoot(),
     ArticleModule,
-    // AuthorModule,
-    // CommentModule,
+    AuthorModule,
+    CommentModule,
   ],
 })
 export class AppModule {

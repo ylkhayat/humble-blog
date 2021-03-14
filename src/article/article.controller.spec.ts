@@ -1,16 +1,15 @@
+import { DatabaseModule } from './../../database/database.module';
 import { ArticleService } from './article.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ArticleController } from './article.controller';
 import { Article } from './article.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Author } from 'src/author/author.entity';
 
 describe('ArticleController', () => {
   let controller: ArticleController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forFeature([Article]), Author],
+      imports: [DatabaseModule],
       controllers: [ArticleController],
       providers: [ArticleService],
     }).compile();

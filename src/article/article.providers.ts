@@ -5,7 +5,9 @@ import { Article } from './article.entity';
 export const articleProviders = [
   {
     provide: ARTICLE_REPOSITORY,
-    useFactory: (connection: Connection) => connection.getRepository(Article),
+    useFactory: (connection: Connection) => {
+      return connection.getRepository(Article);
+    },
     inject: ['DATABASE_CONNECTION'],
   },
 ];
