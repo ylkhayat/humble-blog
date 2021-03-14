@@ -7,12 +7,12 @@ import { Connection } from 'typeorm';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({ autoLoadEntities: true }),
-    AuthorModule,
+    TypeOrmModule.forRoot(),
     ArticleModule,
-    CommentModule,
+    // AuthorModule,
+    // CommentModule,
   ],
 })
 export class AppModule {
-  constructor(private readonly _: Connection) {}
+  constructor(private readonly connection: Connection) {}
 }

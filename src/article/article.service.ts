@@ -1,14 +1,14 @@
 import { Author } from './../author/author.entity';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { getRepository, Repository } from 'typeorm';
 import { Article } from './article.entity';
 import { CreateArticleDto } from './dto/create-article.dto';
+import { ARTICLE_REPOSITORY } from 'src/constants';
 
 @Injectable()
 export class ArticleService {
   constructor(
-    @InjectRepository(Article)
+    @Inject(ARTICLE_REPOSITORY)
     private readonly articlesRepository: Repository<Article>,
   ) {}
 

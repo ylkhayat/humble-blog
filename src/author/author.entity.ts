@@ -1,11 +1,5 @@
 import { Article } from './../article/article.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  BeforeUpdate,
-  OneToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity('author')
 export class Author {
@@ -26,9 +20,4 @@ export class Author {
 
   @OneToMany(() => Article, (article) => article.author, { cascade: true })
   articles: Article[];
-
-  @BeforeUpdate()
-  updateTimestamp() {
-    this.updatedAt = new Date();
-  }
 }

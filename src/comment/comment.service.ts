@@ -1,13 +1,13 @@
+import { COMMENT_REPOSITORY } from './../constants';
 import { Article } from './../article/article.entity';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Comment } from './comment.entity';
 import { getRepository, Repository } from 'typeorm';
 @Injectable()
 export class CommentService {
   constructor(
-    @InjectRepository(Comment)
+    @Inject(COMMENT_REPOSITORY)
     private readonly commentsRepository: Repository<Comment>,
   ) {}
 
