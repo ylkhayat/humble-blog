@@ -1,4 +1,5 @@
-import { ArticleController } from './article.controller';
+import { ArticleService } from './article.service';
+import { Comment } from './../comment/comment.entity';
 import { ArticleModule } from './article.module';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -6,25 +7,28 @@ import { Author } from '../author/author.entity';
 import { Article } from './article.entity';
 import { INestApplication } from '@nestjs/common';
 import * as supertest from 'supertest';
+import { Repository } from 'typeorm';
 
 describe('Article Service', () => {
   let app: INestApplication;
-  let articlesController: ArticleController;
+  let articlesService: ArticleService;
+  let authorsRepository: Repository<Author>;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         ArticleModule,
         TypeOrmModule.forRoot({
+          type: 'mysql',
           database: 'humble_blog_e2e_test',
-          entities: ['../../src/**/*.entity.ts'],
+          entities: [Author, Article, Comment],
           synchronize: true,
         }),
       ],
     }).compile();
 
     app = module.createNestApplication();
-
+    articlesService = module.get(ArticleService);
     await app.init();
   });
 
@@ -38,7 +42,7 @@ describe('Article Service', () => {
 
   describe('POST /articles', () => {
     it('should return an array of articles', async (done) => {
-      await authorsRepository?.save([
+      await articlesService.authorsRepository?.save([
         { name: 'testing-agent-1', jobTitle: 'testing-job-1' },
       ]);
 

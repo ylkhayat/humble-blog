@@ -1,18 +1,17 @@
-import { AUTHOR_REPOSITORY } from './../constants';
+import { ARTICLE_REPOSITORY, AUTHOR_REPOSITORY } from './../constants';
 import { Author } from './../author/author.entity';
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Article } from './article.entity';
 import { CreateArticleDto } from './dto/create-article.dto';
-import { ARTICLE_REPOSITORY } from 'src/constants';
 
 @Injectable()
 export class ArticleService {
   constructor(
     @Inject(ARTICLE_REPOSITORY)
-    private readonly articlesRepository: Repository<Article>,
+    readonly articlesRepository: Repository<Article>,
     @Inject(AUTHOR_REPOSITORY)
-    private readonly authorsRepository: Repository<Author>,
+    readonly authorsRepository: Repository<Author>,
   ) {}
 
   async create(articleData: CreateArticleDto): Promise<Article> {
@@ -28,8 +27,8 @@ export class ArticleService {
     return newArticle;
   }
 
-  findAll(query: string, byThumbsUp: boolean): Promise<Article[]> {
-    const qb = this.articlesRepository.createQueryBuilder('article');
+  async findAll(query: string, byThumbsUp: boolean): Promise<Article[]> {
+    const qb = await this.articlesRepository.createQueryBuilder('article');
     if (query)
       qb.where('article.body like :query OR article.title like :query', {
         query: `%${query}%`,

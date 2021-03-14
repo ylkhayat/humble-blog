@@ -1,4 +1,4 @@
-import { COMMENT_REPOSITORY } from 'src/constants';
+import { COMMENT_REPOSITORY } from '../constants';
 import { Connection } from 'typeorm';
 import { Comment } from './comment.entity';
 
