@@ -13,12 +13,28 @@ Before we proceed, here are some of references I followed in order to ensure a c
 - 📦 [ArturKisov/nestjs-mysql-starter](https://github.com/ArturKisov/nestjs-mysql-starter)
 - 📦 [lujakob/nestjs-realworld-example-app](https://github.com/lujakob/nestjs-realworld-example-app)
 
-### Let's Get Started
+### Setup & running the application
 
 You can either use the **dockerized** version of the application or try it out in the wild.
 In both cases, you will need the `.env` set inorder for this experience to be complete. You can follow the `.env.copy` to know which enviroment variables are expected.
 
-#### 🐳 Embarking Docker
+#### 📸 Clone the repository
+
+Start-off by cloning the repository from [GitHub CLI](https://cli.github.com/)
+
+```bash
+$ gh repo clone yousseftarekkh/humble-blog
+```
+
+```bash
+$ cd humble-blog
+```
+
+#### 🏃‍♂️ Run the application
+
+You can choose between using the `docker` way or the normal way.
+
+##### 🐳 Embarking Docker
 
 If everything is setup as it should, the application should run smoothly after the following command.
 
@@ -26,7 +42,7 @@ If everything is setup as it should, the application should run smoothly after t
 $ docker-compose up
 ```
 
-#### 🏝️ Prefering the shore
+##### 🏝️ Prefering the shore
 
 First install the dependencies
 
@@ -40,7 +56,7 @@ Then proceed with the basic launch
 $ yarn start
 ```
 
-### Running the app
+### Inspecting the content
 
 Expected functionalities and available APIs are exposed over [📰 here !!](http://localhost:3000/api/#/) once the application is online using [Swagger](https://swagger.io/).
 
