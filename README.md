@@ -87,7 +87,7 @@ class Article {
 ##### Comment
 
 ```ts
-class ##### Comment
+class Comment
  {
   body: string;
   article: Article;
