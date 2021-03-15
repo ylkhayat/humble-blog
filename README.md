@@ -60,7 +60,40 @@ $ yarn start
 
 Expected functionalities and available APIs are exposed over [📰 here !!](http://localhost:3000/api/#/) once the application is online using [Swagger](https://swagger.io/).
 
-#### Short brief over the architecture of the API
+#### 🪐 Architecture of the models
+
+##### Author
+
+```ts
+class Author {
+  name: string;
+  jobTitle: string;
+  thumbsUp: number;
+  articles: Article[];
+}
+```
+
+##### Article
+
+```ts
+class Author {
+  title: string;
+  body: string;
+  thumbsUp: number;
+  author: Author;
+}
+```
+
+##### Comment
+
+```ts
+class Author {
+  body: string;
+  article: Article;
+}
+```
+
+#### 🎪 Architecture of the API
 
 - 🖋️ **Authors** - `/authors`
   - [`POST /authors` Create Author](http://localhost:3000/api/#/default/AuthorController_create) - creates an author
