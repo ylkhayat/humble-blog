@@ -60,20 +60,30 @@ $ yarn start
 
 Expected functionalities and available APIs are exposed over [📰 here !!](http://localhost:3000/api/#/) once the application is online using [Swagger](https://swagger.io/).
 
-#### Short brief
+#### Short brief over the architecture of the API
 
-- 🖋️ **Authors**
-  - [Create Author](http://localhost:3000/api/#/default/AuthorController_create) - creates an author
-  - [List Authors](http://localhost:3000/api/#/default/AuthorController_findAll) - lists all authors
-  - [Preview Author](http://localhost:3000/api/#/default/AuthorController_findById) - preview an author by id
-- 📃 **Articles**
-  - [Create Article](http://localhost:3000/api/#/default/ArticleController_create) - creates an article
-  - [List Articles](http://localhost:3000/api/#/default/ArticleController_findAll) - lists all articles (use `query` to search & `byThumbsUp` to sort)
-  - [Preview Article](http://localhost:3000/api/#/default/ArticleController_findById) - preview an article by id
-  - [Update Article](http://localhost:3000/api/#/default/ArticleController_updateById) - updates a certain article by id (use `thumbsUp` boolean to give the article a kudos 👍)
-- 🗯️ **Comments**
-  - [Post Comment](http://localhost:3000/api/#/default/CommentController_create) - posts a comment to a certain article by id
-  - [List Comments](http://localhost:3000/api/#/default/CommentController_findAll) - lists all comments
+- 🖋️ **Authors** - `/authors`
+  - [`POST /authors` Create Author](http://localhost:3000/api/#/default/AuthorController_create) - creates an author
+    - _body:_ `name` (**string**) - name of the author
+    - _body:_ `jobTitle` (**string**) - his/her job title
+  - [`GET /authors` List Authors](http://localhost:3000/api/#/default/AuthorController_findAll) - lists all authors
+  - [`GET /authors/:id` Preview Author](http://localhost:3000/api/#/default/AuthorController_findById) - preview an author by id
+- 📃 **Articles** - `/articles`
+  - [`POST /articles` Create Article](http://localhost:3000/api/#/default/ArticleController_create) - creates an article
+    - _body:_ `author` (**string**) - id of the author
+    - _body:_ `body` (**string**) - content of the article
+    - _body:_ `title` (**string**) - title of the article
+  - [`GET /articles` List Articles](http://localhost:3000/api/#/default/ArticleController_findAll) - lists all articles here's a list of supported params
+    - _params:_ `query` (**string**) - offer a general search over the `title` and the `body`
+    - _params:_ `byThumbsUp` (**boolean**) - offer a sorting listing by the `thumbsUp` property
+  - [`GET /articles/:id` Preview Article](http://localhost:3000/api/#/default/ArticleController_findById) - preview an article by id
+  - [`PUT /articles/:id` Update Article](http://localhost:3000/api/#/default/ArticleController_updateById) - updates a certain article by id
+    - _body:_ `thumbsUp` (**boolean**) - boolean to give the article a kudos 👍
+- 🗯️ **Comments** - `/comments`
+  - [`POST /comments` Post Comment](http://localhost:3000/api/#/default/CommentController_create) - posts a comment to a certain article by id
+    - _body:_ `article` (**string**) - id of the article
+    - _body:_ `body` (**string**) - content of the comment
+  - [`GET /comments` List Comments](http://localhost:3000/api/#/default/CommentController_findAll) - lists all comments
 
 ### Testing Functionalities
 
