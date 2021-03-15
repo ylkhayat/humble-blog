@@ -120,6 +120,8 @@ class Author {
 
 ### Testing Functionalities
 
+![made-with-Markdown](https://img.shields.io/static/v1?label=implementation&message=pending&color=critical)
+
 All the mentioned functionalities are tested through `*.spec` files. You may run the following command to perform a quick checkup over the APIs to ensure their functionality.
 
 ```bash
