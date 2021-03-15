@@ -76,7 +76,7 @@ class Author {
 ##### Article
 
 ```ts
-class Author {
+class Article {
   title: string;
   body: string;
   thumbsUp: number;
@@ -87,7 +87,8 @@ class Author {
 ##### Comment
 
 ```ts
-class Author {
+class ##### Comment
+ {
   body: string;
   article: Article;
 }
