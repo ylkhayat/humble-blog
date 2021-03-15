@@ -1,18 +1,45 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { ArticleService } from './article.service';
+import { Test, TestingModule } from '@nestjs/testing';
 
-describe('ArticleService', () => {
-  let service: ArticleService;
+jest.useFakeTimers();
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [ArticleService],
+class ApiServiceMock {}
+
+describe('Article Service', () => {
+  let app: TestingModule;
+  let articlesService: ArticleService;
+
+  beforeAll(async () => {
+    const ApiServiceProvider = {
+      provide: ArticleService,
+      useClass: ApiServiceMock,
+    };
+
+    app = await Test.createTestingModule({
+      imports: [ArticleService],
+      providers: [ArticleService, ApiServiceProvider],
     }).compile();
-
-    service = module.get<ArticleService>(ArticleService);
+    articlesService = app.get<ArticleService>(ArticleService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  afterEach(async () => {});
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  describe('Create Article', () => {
+    it('should create an article', async () => {
+      const createdService = await articlesService.create({
+        author: 1,
+        body: 'test-body-1',
+        title: 'test-title-1',
+      });
+      console.log(createdService);
+    });
+  });
+
+  afterAll(async () => {
+    await app?.close();
   });
 });

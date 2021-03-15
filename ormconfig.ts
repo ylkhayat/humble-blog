@@ -5,7 +5,7 @@ const typeOrmConfig = {
   username: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
-  entities: ['dist/**/*.entity.js'],
+  entities: ['dist/**/*.entity.{.ts,.js}'],
   synchronize: true,
 };
 

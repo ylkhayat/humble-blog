@@ -13,9 +13,9 @@ export class FindArticleDto {
 export class FindArticlesDto {
   @IsString()
   @IsOptional()
-  readonly query?: string;
+  readonly query: string;
 
   @IsBooleanString()
   @IsOptional()
-  readonly byThumbsUp?: boolean;
+  readonly byThumbsUp: boolean;
 }
