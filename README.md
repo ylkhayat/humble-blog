@@ -81,6 +81,7 @@ class Article {
   body: string;
   thumbsUp: number;
   author: Author;
+  comments: Comment[];
 }
 ```
 
